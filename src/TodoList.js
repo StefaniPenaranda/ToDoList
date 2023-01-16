@@ -1,8 +1,8 @@
 import React from 'react';
 import './TodoList.css'
 
-function TodoList (props){
-  return(
+function TodoList(props) {
+  return (
     <section>
       <ul>
         {props.children}
@@ -11,4 +11,4 @@ function TodoList (props){
   );
 }
 
-export { TodoList};
+export { TodoList };
