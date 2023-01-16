@@ -1,6 +1,6 @@
 // import './App.css';
 import React from 'react';
-import  {TodoCounter} from './todoCounter';
+import {TodoCounter} from './todoCounter';
 import {TodoItem} from './TodoItem';
 import {TodoSearch} from './TodoSearch';
 import {CreateTodoButton} from './CreateTodoButton';
@@ -19,7 +19,11 @@ function App(props) {
       <TodoSearch />
       <TodoList> 
         {todos.map( todo =>(
-          <TodoItem key={todo.text} text={todo.text} />
+          <TodoItem 
+          key={todo.text} 
+          text={todo.text} 
+         completed={todo.completed}
+          />
         ))}
       </TodoList> 
       <CreateTodoButton></CreateTodoButton>
