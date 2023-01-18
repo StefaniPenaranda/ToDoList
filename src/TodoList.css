@@ -1,5 +1,7 @@
 ul {
-  margin: 0;
-  padding: 0 0 56px 0;
+  margin: 20px 0;
+  padding: 10px;
   list-style: none;
+  background-color: #B1D19A;
+  border-radius: 8px;
 }
