@@ -6,7 +6,7 @@ import { TodoItem } from './TodoItem';
 import { CreateTodoButton } from './CreateTodoButton';
 import './App.css';
 
-const todos = [
+const defaultTodos = [
   { text: 'Cortar cebolla', completed: true },
   { text: 'Tomar el cursso de intro a React', completed: true },
   { text: 'Llorar con la llorona', completed: false },
@@ -14,26 +14,44 @@ const todos = [
 ];
 
 function App() {
-  const [todo, setTodos] = React.useState(todos); 
+  const [todos, setTodos] = React.useState(defaultTodos); 
   // creandonnuestro estado
   const [searchValue, setSearchValue] = React.useState('');
   //contamos cuantos todos tenemos completados y cuantontenemos entotoal
-  const completeTodo = todo.filter(todo => todo.completed === true).length
-  const totalTodos = todo.length;
+  const completedTodos = todos.filter(todo => todo.completed == true).length
+
+  const totalTodos = todos.length;
+  
+  //crear un array vacio que recibira todos las busquedas
+  let searchTodos = [];
+
+  if (!searchValue.length >= 1){
+    searchTodos = todos;
+  } else { 
+    searchTodos = todos.filter( todo => {
+      const todoText = todo.text.toLowerCase();
+      console.log(todoText)
+      const searchText = searchValue.toLowerCase();
+      console.log(searchText) 
+      return todoText.includes(searchText);
+    })
+  }
+
   return (
     <React.Fragment>
       <TodoSearch 
+      // imprimiendo en consola el imput
       searchValue = {searchValue}
       setSearchValue = {setSearchValue}
       />
       <TodoCounter 
         total = {totalTodos}
-        complete = {completeTodo}
+        completed = {completedTodos}
       />
       
 
       <TodoList>
-        {todo.map(todo => (
+        {searchTodos.map(todo => (
           <TodoItem
             key={todo.text}
             text={todo.text}
