@@ -6,15 +6,26 @@ import { TodoItem } from '../componets/TodoItem';
 import { CreateTodoButton } from '../componets/CreateTodoButton';
 import '../styles/pages/App.css';
 
-const defaultTodos = [
-  { text: 'Cortar cebolla', completed: true },
-  { text: 'Tomar el cursso de intro a React', completed: true },
-  { text: 'Llorar con la llorona', completed: false },
-  { text: 'LALALALAA', completed: false },
-];
+// const defaultTodos = [
+//   { text: 'Cortar cebolla', completed: true },
+//   { text: 'Tomar el cursso de intro a React', completed: true },
+//   { text: 'Llorar con la llorona', completed: false },
+//   { text: 'LALALALAA', completed: false },
+// ];
 
 function App() {
-  const [todos, setTodos] = React.useState(defaultTodos); 
+  const localStorageTodos = localStorage.getItem('TODOS_V1');
+  let parsedTodos;// para los usuarios nuevos que nunca han tenido una tarea
+  if (!localStorageTodos) {
+    // Si el usuario es nuevo no existe un item en localStorage, por lo tanto guardamos uno con un array vacío
+    localStorage.setItem('TODOS_V1', JSON.stringify([]));
+    parsedTodos = [];
+  } else {
+    // Si existen TODOs en el localStorage los regresamos como nuestros todos
+    parsedTodos = JSON.parse(localStorageTodos);
+  }
+
+  const [todos, setTodos] = React.useState(parsedTodos); 
   // creandonnuestro estado
   const [searchValue, setSearchValue] = React.useState('');
   //contamos cuantos todos tenemos completados y cuantontenemos entotoal
@@ -37,6 +48,16 @@ function App() {
     // })
     searchTodos = todos.filter(todo => todo.text.toLowerCase().includes(searchValue.toLowerCase()));
   }
+//funciona para 
+const safeTodos = (newTodos)=>{
+    const stringConvertTodos = JSON.stringify(setTodos);//convirtiendo los todos a string
+    localStorage.setItem('TODO_V1',stringConvertTodos);
+     // llamamos localStorage(donde queremos guardar la info, enviamos el strign con la nueva actualizacion de todos
+     // )
+     setTodos(newTodos);
+  };
+
+
   // funcion para marcra comocompletados 
   const completeTodo = (text) => {
     const todoIndex = todos.findIndex(todo => todo.text === text);
