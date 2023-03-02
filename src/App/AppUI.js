@@ -6,6 +6,7 @@ import { TodoList } from '../TodoList';
 import { TodoItem } from '../TodoItem';
 import { CreateTodoButton } from '../CreateTodoButton';
 import { Modal } from '../Modal';
+import { TodoForm } from '../TodoForm';
 
 function AppUI() {
   const {
@@ -39,15 +40,14 @@ function AppUI() {
         ))}
       </TodoList>
       
-      {/* le pregunta si es 'true'. si es asi , se renderiza el  */}
       {!!openModal && (
         <Modal>
-          <p>fuciona</p>
+          <TodoForm/>
         </Modal>
       )}
 
       <CreateTodoButton
-      setOpenModal={setOpenModal}
+        setOpenModal={setOpenModal}
       />
     </React.Fragment>
   );

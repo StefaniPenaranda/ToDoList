@@ -28,10 +28,19 @@ function TodoProvider(props) {
     });
   }
 
+  const addTodo = (text) => {
+    const newTodos = [...todos];
+    newTodos.push({
+      completed: false,
+      text,
+    });
+    saveTodos(newTodos);
+  };
+
   const completeTodo = (text) => {
     const todoIndex = todos.findIndex(todo => todo.text === text);
     const newTodos = [...todos];
-    newTodos[todoIndex].completed = true;
+    newTodos[todoIndex].completed = !newTodos[todoIndex].completed;
     saveTodos(newTodos);
   };
 
@@ -41,6 +50,8 @@ function TodoProvider(props) {
     newTodos.splice(todoIndex, 1);
     saveTodos(newTodos);
   };
+
+ 
   
   return (
     <TodoContext.Provider value={{
@@ -53,6 +64,7 @@ function TodoProvider(props) {
       searchedTodos,
       completeTodo,
       deleteTodo,
+      addTodo,
       openModal,
       setOpenModal
     }}>
